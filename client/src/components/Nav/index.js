@@ -6,6 +6,8 @@ function Nav() {
       <a className="navbar-brand" href="/">
         Goo Search for Books
       </a>
+      <a href="/"> Search </a>
+      <a href="#"> Saved </a>
     </nav>
   );
 }
