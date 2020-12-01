@@ -1,16 +1,13 @@
 import axios from "axios";
 
-// const BASEURL = "https://www.omdbapi.com/?t=";
-// const APIKEY = "&apikey=AIzaSyDtSbwqCRi1p5c_avBsJmd65_6na1UjyH8";
-
 export default {
+  
   // Gets all books
   getBooks: function() {
     return axios.get("/api/books");
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  findBook: function(bookSearch) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${bookSearch}`);
   },
   // Deletes the book with the given id
   deleteBook: function(id) {
