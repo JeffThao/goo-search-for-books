@@ -6,9 +6,8 @@ import { List, ListItem } from "../components/List";
 import ViewBtn from "../components/ViewBtn";
 
 function Saved() {
-  // Setting our component's initial state
+
   const [books, setBooks] = useState([])
-  const [formObject, setFormObject] = useState({})
 
   // Load all books and store them with setBooks
   useEffect(() => {

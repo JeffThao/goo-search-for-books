@@ -7,7 +7,7 @@ function Nav() {
         Goo Search for Books
       </a>
       <a href="/"> Search </a>
-      <a href="#"> Saved </a>
+      <a href="/saved-books"> Saved </a>
     </nav>
   );
 }

@@ -14,12 +14,32 @@ function Books() {
     loadBooks()
   }, [])
 
+  function getGoogleBooks() {
+    //get userinput
+    //call utils=>findBooks(userinput)
+    //.then(function(data){
+    //   console.log(data)
+    // })
+  }
+
+  // need to create an onsubmit=> call get GoogleBooks
 
   const handleInputChange = event => {
     const { value } = event.target;
     setuserInput(value);
   };
 
+ function saveBook(id){
+   //run a for loop and check against your array of books.. if the id matches, you found it and grab the object wit the title, img, author
+   books.map((currentbooks) => {
+     if (currentbooks.id === id) {
+       return 
+     }
+   })
+   //store into obj
+   //API.saveBook(obj)
+
+  }
 
   const handleFormSubmit = event => {
     event.preventDefault();
@@ -63,7 +83,7 @@ function Books() {
               <tr key={currentbooks.id} style={{marginLeft: 5}}>
                 <th scope="row">
                 </th>
-                <td><img className="bookImg" src={currentbooks.volumeInfo.imageLinks.smallThumbnail} style={{paddingTop: 20}}/></td>
+                <td><img alt={currentbooks.volumeInfo.title} src={currentbooks.volumeInfo.imageLinks.thumbnail} style={{paddingTop: 20}}/></td>
                 <td >
                   {currentbooks.volumeInfo.title}
                   <button className="btn saveBtn"
