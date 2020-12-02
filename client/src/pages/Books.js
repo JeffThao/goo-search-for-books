@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from "react";
-import Jumbotron from "../components/Jumbotron";
-import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, FormBtn } from "../components/Form";
 
 function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
-  const [formObject, setFormObject] = useState({})
+  // const [formObject, setFormObject] = useState({})
+  const [userInput, setuserInput] = useState("");
 
   // Load all books and store them with setBooks
   useEffect(() => {
     loadBooks()
   }, [])
+
+
+  const handleInputChange = event => {
+    const { value } = event.target;
+    setuserInput(value);
+  };
+
+
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    API.findBook(userInput)
+      .then(res => setBooks(res.data.items))
+      .catch(err => console.log(err));
+  };
 
   // Loads all books and sets them to books
   function loadBooks() {
@@ -25,65 +37,49 @@ function Books() {
       .catch(err => console.log(err));
   };
 
-
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron>
+          <Col size="md">
             <form>
+              <h4>Book Search</h4>
               <Input
-                onChange={() => {}}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                onChange={() => {}}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                onChange={() => {}}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
+                name="bookSearch"
+                value={userInput}
+                onChange={handleInputChange}
+                placeholder="Search For a Book by title"
+              
               />
               <FormBtn
-                disabled={!(formObject.author && formObject.title)}
-                onClick={() => {}}
+                onClick={handleFormSubmit}
               >
                 Submit Book
               </FormBtn>
+
             </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {books.length ? (
-              <List>
-                {books.map(book => {
-                  return (
-                    <ListItem key={book._id}>
-                      <a href={"/books/" + book._id}>
-                        <strong>
-                          {book.title} by {book.author}
-                        </strong>
-                      </a>
-                      <DeleteBtn onClick={() =>{}} />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
+
+            <div>
+              {books.map((currentbooks) => (
+              <tr key={currentbooks.id} style={{marginLeft: 5}}>
+                <th scope="row">
+                </th>
+                <td><img className="bookImg" src={currentbooks.volumeInfo.imageLinks.smallThumbnail} style={{paddingTop: 20}}/></td>
+                <td >
+                  {currentbooks.volumeInfo.title}
+                  <button className="btn saveBtn"
+                   onClick={saveBook(currentbooks.id)}
+                  >Save</button>
+                   <tr>{currentbooks.volumeInfo.authors}</tr>
+              
+              <tr>{currentbooks.volumeInfo.description}</tr>
+                </td>
+              </tr>
+              ))}</div>
+
           </Col>
         </Row>
       </Container>
     );
   }
-
 
 export default Books;
