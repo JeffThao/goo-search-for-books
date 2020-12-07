@@ -57,6 +57,7 @@ function Books() {
       .catch(err => console.log(err));
   };
 
+
     return (
       <Container fluid>
         <Row>
@@ -78,12 +79,12 @@ function Books() {
 
             </form>
 
-            <div>
+
               {books.map((currentbooks) => (
-              <tr key={currentbooks.id} style={{marginLeft: 5}}>
+              <tr key={currentbooks.id} >
                 <th scope="row">
                 </th>
-                <td><img alt={currentbooks.volumeInfo.title} src={currentbooks.volumeInfo.imageLinks.thumbnail} style={{paddingTop: 20}}/></td>
+                {/* <td><img src={currentbooks.volumeInfo.imageLinks.thumbnail} style={{paddingTop: 20}}/></td> */}
                 <td >
                   {currentbooks.volumeInfo.title}
                   <button className="btn saveBtn"
@@ -94,7 +95,7 @@ function Books() {
               <tr>{currentbooks.volumeInfo.description}</tr>
                 </td>
               </tr>
-              ))}</div>
+              ))}
 
           </Col>
         </Row>
